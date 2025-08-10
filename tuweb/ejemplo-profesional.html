@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bufete Legal & Asociados</title>
+<style>
+  /* Reset y estilos base */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    color: #222;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  body.dark {
+    background: #121212;
+    color: #ddd;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+  a:hover {
+    color: #0056b3;
+  }
+  body.dark a:hover {
+    color: #66aaff;
+  }
+
+  header {
+    background: #222;
+    color: #fff;
+    padding: 1.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    animation: fadeInDown 1s ease forwards;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header h1 {
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 1.5rem;
+  }
+
+  nav {
+    margin-left: auto;
+  }
+
+  nav a {
+    margin: 0 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  /* Boton modo oscuro */
+  #darkModeToggle {
+    background: transparent;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.9rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+  }
+  #darkModeToggle:hover {
+    background: #fff;
+    color: #222;
+  }
+
+  main {
+    flex: 1;
+    max-width: 900px;
+    margin: 3rem auto 4rem auto;
+    padding: 0 1rem;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .hero h2 {
+    font-weight: 800;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #111;
+  }
+  body.dark .hero h2 {
+    color: #eee;
+  }
+
+  .hero p {
+    font-size: 1.1rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  body.dark .hero p {
+    color: #ccc;
+  }
+
+  .services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }
+
+  .service {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 0.05);
+    cursor: default;
+  }
+  body.dark .service {
+    background: #222;
+    box-shadow: 0 8px 16px rgb(255 255 255 / 0.05);
+  }
+
+  .service h3 {
+    margin-bottom: 1rem;
+    color: #003366;
+  }
+  body.dark .service h3 {
+    color: #66aaff;
+  }
+
+  .service p {
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  body.dark .service p {
+    color: #bbb;
+  }
+
+  /* Por qué elegirnos */
+  .why-us {
+    background: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 4rem;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 0.05);
+    animation: fadeInUp 1s ease forwards;
+  }
+  body.dark .why-us {
+    background: #222;
+    box-shadow: 0 8px 16px rgb(102 170 255 / 0.2);
+  }
+
+  .why-us h2 {
+    color: #003366;
+    margin-bottom: 1rem;
+  }
+  body.dark .why-us h2 {
+    color: #66aaff;
+  }
+
+  .why-us ul {
+    list-style: none;
+    padding-left: 1.2rem;
+  }
+
+  .why-us li {
+    position: relative;
+    padding-left: 1.8rem;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    color: #444;
+  }
+  body.dark .why-us li {
+    color: #ccc;
+  }
+  .why-us li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background: #0056b3;
+    border-radius: 50%;
+  }
+  body.dark .why-us li::before {
+    background: #66aaff;
+  }
+
+  /* Testimonios */
+  .testimonials {
+    max-width: 900px;
+    margin: 0 auto 4rem auto;
+    animation: fadeInUp 1s ease forwards;
+  }
+
+  .testimonials h2 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 2rem;
+  }
+  body.dark .testimonials h2 {
+    color: #66aaff;
+  }
+
+  .testimonial {
+    background: #fff;
+    padding: 1.8rem 2rem;
+    border-radius: 12px;
+    margin-bottom: 1.8rem;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 0.05);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  body.dark .testimonial {
+    background: #222;
+    box-shadow: 0 8px 16px rgb(102 170 255 / 0.1);
+  }
+
+  .testimonial img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0056b3;
+  }
+  body.dark .testimonial img {
+    border-color: #66aaff;
+  }
+
+  .testimonial-content {
+    flex: 1;
+  }
+
+  .testimonial-content p {
+    font-style: italic;
+    color: #555;
+  }
+  body.dark .testimonial-content p {
+    color: #bbb;
+  }
+
+  .testimonial-content h4 {
+    margin-top: 0.7rem;
+    font-weight: 700;
+    color: #003366;
+  }
+  body.dark .testimonial-content h4 {
+    color: #66aaff;
+  }
+
+  /* Equipo */
+  #equipo {
+    margin-top: 4rem;
+    text-align: center;
+    animation: fadeInUp 1s ease forwards;
+  }
+  #equipo h2 {
+    color: #003366;
+    margin-bottom: 1rem;
+  }
+  body.dark #equipo h2 {
+    color: #66aaff;
+  }
+  #equipo p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #555;
+  }
+  body.dark #equipo p {
+    color: #ccc;
+  }
+
+  /* Contacto */
+  #contacto {
+    margin-top: 4rem;
+    text-align: center;
+    animation: fadeInUp 1s ease forwards;
+  }
+  #contacto h2 {
+    color: #003366;
+    margin-bottom: 1rem;
+  }
+  body.dark #contacto h2 {
+    color: #66aaff;
+  }
+  #contacto p {
+    color: #555;
+    margin-bottom: 0.5rem;
+  }
+  body.dark #contacto p {
+    color: #ccc;
+  }
+
+  /* Formulario */
+  form {
+    max-width: 500px;
+    margin: 2rem auto 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 0.05);
+  }
+  body.dark form {
+    background: #222;
+    box-shadow: 0 8px 16px rgb(102 170 255 / 0.1);
+  }
+
+  form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #222;
+  }
+  body.dark form label {
+    color: #ccc;
+  }
+
+  form input, form textarea {
+    width: 100%;
+    padding: 0.6rem;
+    margin-bottom: 1.2rem;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+    background: #fafafa;
+    color: #222;
+  }
+  body.dark form input, body.dark form textarea {
+    background: #333;
+    color: #ddd;
+    border-color: #555;
+  }
+
+  form input:focus, form textarea:focus {
+    border-color: #0056b3;
+    outline: none;
+  }
+  body.dark form input:focus, body.dark form textarea:focus {
+    border-color: #66aaff;
+  }
+
+  form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  form button {
+    background: #0056b3;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  form button:hover {
+    background: #003366;
+  }
+
+  /* Mapa */
+  .map-container {
+    margin-top: 2rem;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 0.1);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Botón WhatsApp fijo */
+  #whatsappBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25d366;
+    color: white;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    box-shadow: 0 6px 12px rgb(0 0 0 / 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 1100;
+  }
+  #whatsappBtn:hover {
+    background: #1ebe57;
+  }
+
+  /* Animaciones */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    } to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    } to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Animaciones al hacer scroll - clases para JS */
+  .fadeInOnScroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fadeInOnScroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Estilos acordeón servicios */
+  .service-title {
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+  }
+  .service-title::after {
+    content: '▼';
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+  }
+  .service-title[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+  }
+
+  .service-detail {
+    margin-top: 1rem;
+    color: #222;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
+  }
+  body.dark .service-detail {
+    color: #ccc;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 1.3rem;
+    }
+    .hero h2 {
+      font-size: 1.8rem;
+    }
+    nav a {
+      margin: 0 0.5rem;
+      font-size: 0.9rem;
+    }
+    form {
+      padding: 1.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <h1>Bufete Legal & Asociados</h1>
+    <nav>
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <button id="darkModeToggle" aria-label="Cambiar modo oscuro">Modo Oscuro</button>
+  </header>
+
+  <main>
+    <section class="hero fadeInOnScroll">
+      <h2>Defendemos tus derechos con pasión y experiencia</h2>
+      <p>En Bufete Legal & Asociados ofrecemos asesoría jurídica personalizada para particulares y empresas. Tu caso es nuestra prioridad.</p>
+    </section>
+
+    <section id="servicios" class="services fadeInOnScroll" aria-label="Servicios">
+      <article class="service" tabindex="0" aria-labelledby="serv1">
+        <h3 id="serv1" class="service-title" role="button" aria-expanded="false" tabindex="0">Derecho Civil</h3>
+        <p class="service-short">Consultoría y representación en asuntos civiles como contratos, herencias y conflictos familiares.</p>
+        <div class="service-detail" hidden>
+          <p>Ofrecemos asesoría especializada en contratos civiles, sucesiones, divorcios, y mediación familiar. Nuestro equipo te acompaña en cada paso para proteger tus derechos y patrimonio.</p>
+        </div>
+      </article>
+
+      <article class="service" tabindex="0" aria-labelledby="serv2">
+        <h3 id="serv2" class="service-title" role="button" aria-expanded="false" tabindex="0">Derecho Penal</h3>
+        <p class="service-short">Defensa legal especializada para delitos y procesos penales con total discreción y compromiso.</p>
+        <div class="service-detail" hidden>
+          <p>Defendemos a nuestros clientes en todo tipo de procesos penales, garantizando confidencialidad, estrategia legal sólida y representación efectiva en tribunales.</p>
+        </div>
+      </article>
+
+      <article class="service" tabindex="0" aria-labelledby="serv3">
+        <h3 id="serv3" class="service-title" role="button" aria-expanded="false" tabindex="0">Derecho Laboral</h3>
+        <p class="service-short">Asesoría en conflictos laborales, despidos, y negociaciones sindicales.</p>
+        <div class="service-detail" hidden>
+          <p>Brindamos asesoramiento para empleados y empleadores en despidos injustificados, reclamaciones, contratos laborales, y negociaciones colectivas.</p>
+        </div>
+      </article>
+
+      <article class="service" tabindex="0" aria-labelledby="serv4">
+        <h3 id="serv4" class="service-title" role="button" aria-expanded="false" tabindex="0">Asesoría Corporativa</h3>
+        <p class="service-short">Servicios legales para empresas, contratos comerciales y constitución de sociedades.</p>
+        <div class="service-detail" hidden>
+          <p>Apoyamos a tu empresa en constitución, contratos mercantiles, cumplimiento normativo y estrategias legales para el crecimiento seguro de tu negocio.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="why-us fadeInOnScroll" aria-label="Por qué elegirnos">
+      <h2>¿Por qué elegirnos?</h2>
+      <ul>
+        <li>Más de 20 años de experiencia combinada.</li>
+        <li>Atención personalizada y cercana.</li>
+        <li>Compromiso total con la justicia.</li>
+        <li>Amplia experiencia en múltiples ramas legales.</li>
+        <li>Resultados comprobados y satisfacción garantizada.</li>
+      </ul>
+    </section>
+
+    <section id="testimonios" class="testimonials" aria-label="Testimonios de clientes">
+      <h2>Testimonios</h2>
+
+      <div class="testimonial fadeInOnScroll">
+        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Foto de cliente Ana Pérez" loading="lazy" />
+        <div class="testimonial-content">
+          <p>"El equipo de Bufete Legal & Asociados me ayudó a resolver un caso complicado con gran profesionalismo y rapidez."</p>
+          <h4>Ana Pérez</h4>
+        </div>
+      </div>
+
+      <div class="testimonial fadeInOnScroll">
+        <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Foto de cliente Carlos Gómez" loading="lazy" />
+        <div class="testimonial-content">
+          <p>"Muy agradecido por la dedicación y asesoría clara en todo momento. Los recomiendo ampliamente."</p>
+          <h4>Carlos Gómez</h4>
+        </div>
+      </div>
+
+      <div class="testimonial fadeInOnScroll">
+        <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="Foto de cliente Laura Martínez" loading="lazy" />
+        <div class="testimonial-content">
+          <p>"Profesionales y cercanos, me sentí acompañada durante todo el proceso legal."</p>
+          <h4>Laura Martínez</h4>
+        </div>
+      </div>
+    </section>
+
+    <section id="equipo" aria-label="Nuestro equipo">
+      <h2>Conoce a nuestro equipo</h2>
+      <p>Profesionales altamente capacitados, dedicados a ofrecerte el mejor servicio jurídico con ética y compromiso.</p>
+    </section>
+
+    <section id="contacto" aria-label="Contacto">
+      <h2>Contacto</h2>
+      <p>Estamos listos para ayudarte. Llena el formulario y nos pondremos en contacto contigo.</p>
+
+      <form id="contactForm" aria-label="Formulario de contacto">
+        <label for="name">Nombre</label>
+        <input type="text" id="name" name="name" required placeholder="Tu nombre" />
+
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required placeholder="tu@email.com" />
+
+        <label for="phone">Teléfono</label>
+        <input type="tel" id="phone" name="phone" placeholder="+52 55 1234 5678" />
+
+        <label for="message">Mensaje</label>
+        <textarea id="message" name="message" required placeholder="Escribe tu mensaje aquí..."></textarea>
+
+        <button type="submit">Enviar</button>
+      </form>
+
+      <div class="map-container fadeInOnScroll" aria-label="Mapa de ubicación">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.252010178394!2d-99.17213758473907!3d19.42529164677696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff3ee39ab06f%3A0x1e1a12d5517b1b65!2sAv.%20Reforma%20123%2C%20Ju%C3%A1rez%2C%20Cuauht%C3%A9moc%2C%2006600%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1688668255726!5m2!1ses!2smx"
+          width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Mapa de ubicación">
+        </iframe>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 Bufete Legal & Asociados. Todos los derechos reservados.
+  </footer>
+
+  <!-- Botón WhatsApp -->
+  <a
+    id="whatsappBtn"
+    href="https://wa.me/525512345678"
+    target="_blank"
+    rel="noopener"
+    aria-label="Contactar por WhatsApp"
+    title="Contactar por WhatsApp"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28px" height="28px">
+      <path d="M20.52 3.48a11.937 11.937 0 0 0-17 0 11.915 11.915 0 0 0 0 16.97l-2.61 5.25 5.4-2.6a11.936 11.936 0 0 0 13.41-19.62zm-8.5 14.13a4.43 4.43 0 0 1-2.4-.7l-1.7 1.75-.35-2.54a4.47 4.47 0 0 1 2.45-4.93 1.25 1.25 0 0 1 1.05 0c.4.2.78.48 1.1.8a1 1 0 0 1 0 1.42l-1.22 1.22a.37.37 0 0 0 0 .52l.86.86a1 1 0 0 1 1.43 0c.32.32.6.7.8 1.1a1.25 1.25 0 0 1 0 1.06 4.48 4.48 0 0 1-2.45 2.47z"/>
+    </svg>
+  </a>
+
+<script>
+  // Dark mode toggle
+  const toggleBtn = document.getElementById('darkModeToggle');
+  const body = document.body;
+
+  toggleBtn.addEventListener('click', () => {
+    body.classList.toggle('dark');
+    if (body.classList.contains('dark')) {
+      toggleBtn.textContent = 'Modo Claro';
+      localStorage.setItem('darkMode', 'enabled');
+    } else {
+      toggleBtn.textContent = 'Modo Oscuro';
+      localStorage.removeItem('darkMode');
+    }
+  });
+
+  // Preserve mode on reload
+  if (localStorage.getItem('darkMode') === 'enabled') {
+    body.classList.add('dark');
+    toggleBtn.textContent = 'Modo Claro';
+  }
+
+  // Animación al hacer scroll (fadeInOnScroll)
+  const fadeElems = document.querySelectorAll('.fadeInOnScroll');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1
+  });
+
+  fadeElems.forEach(el => observer.observe(el));
+
+  // Formulario simple validacion y confirmacion
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    alert('Gracias por contactarnos, te responderemos pronto.');
+    form.reset();
+  });
+
+  // Código para acordeón en servicios
+  document.querySelectorAll('.service-title').forEach(title => {
+    title.addEventListener('click', () => {
+      const expanded = title.getAttribute('aria-expanded') === 'true';
+      // Cerrar todos primero
+      document.querySelectorAll('.service-title').forEach(t => t.setAttribute('aria-expanded', 'false'));
+      document.querySelectorAll('.service-detail').forEach(d => d.hidden = true);
+
+      if (!expanded) {
+        title.setAttribute('aria-expanded', 'true');
+        title.nextElementSibling.nextElementSibling.hidden = false;
+      }
+    });
+
+    // Soporte teclado (Enter y espacio)
+    title.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        title.click();
+      }
+    });
+  });
+</script>
+</body>
+</html>
